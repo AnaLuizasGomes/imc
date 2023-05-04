@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Calculadora de IMC</title>
+  </head>
+  <body>
+    <h1>Calculadora de IMC</h1>
+    <form method="post" action="calc_imc.php">
+      <label for="peso">Peso (kg):</label>
+      <input type="text" name="peso" id="peso" required>
+      <br>
+      <label for="altura">Altura (m):</label>
+      <input type="text" name="altura" id="altura" required>
+      <br>
+      <input type="submit" value="Calcular">
+    </form>
+  </body>
+</html>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Resultado do cálculo de IMC</title>
+  </head>
+  <body>
+    <h1>Resultado do cálculo de IMC</h1>
+    <?php
+      // Recebe os dados do formulário
+      $peso = str_replace(',', '.', $_POST['peso']);
+      $altura = str_replace(',', '.', $_POST['altura']);
+
+      // Calcula o IMC
+      $imc = $peso / ($altura * $altura);
+
+      // Exibe o resultado
+      echo "<p>Seu IMC é: " . number_format($imc, 2, '.', ',') . "</p>";
+
+      // Exibe a situação da pessoa de acordo com a tabela
+      if ($imc < 18.5) {
+        echo "<p>Você está abaixo do peso.</p>";
+      } elseif ($imc >= 18.5 && $imc < 25) {
+        echo "<p>Seu peso está dentro do normal.</p>";
+      } elseif ($imc >= 25 && $imc < 30) {
+        echo "<p>Você está com sobrepeso.</p>";
+      } elseif ($imc >= 30 && $imc < 35) {
+        echo "<p>Você está com obesidade grau I.</p>";
+      } elseif ($imc >= 35 && $imc < 40) {
+        echo "<p>Você está com obesidade grau II.</p>";
+      } else {
+        echo "<p>Você está com obesidade grau III.</p>";
+      }
+    ?>
+  </body>
+</html>
